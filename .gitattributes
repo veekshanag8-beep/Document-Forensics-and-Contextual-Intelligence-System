@@ -6,4 +6,6 @@
 *.tif binary
 *.tiff binary
 *.webp binary
+*.mp4 binary
+*.pptx binary
 *.ps1 text eol=crlf

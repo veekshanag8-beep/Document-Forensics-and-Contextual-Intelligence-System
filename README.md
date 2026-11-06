@@ -10,6 +10,18 @@ decides.
 **On the demonstration dataset: 17/17 planted anomalies detected, 0 false positives, genuine case clean**
 ([docs/EVALUATION.md](docs/EVALUATION.md)).
 
+## Presentation & demo
+
+- Presentation: [deliverables/DocForensics_Presentation.pptx](deliverables/DocForensics_Presentation.pptx)
+- Demo video (3 min 46 s, captioned walkthrough of the real app): [deliverables/demo_video.mp4](deliverables/demo_video.mp4)
+- Sample investigation dossier: [deliverables/sample_dossier_case02_visual_tamper.html](deliverables/sample_dossier_case02_visual_tamper.html)
+
+| Corroborated anomaly with traceable evidence | Cross-document entity graph |
+|---|---|
+| ![Findings](deliverables/screenshots/04_corroborated.png) | ![Graph](deliverables/screenshots/11_graph.png) |
+| **Overwritten PDF value found in the text layer** | **Structured extraction with overlays** |
+| ![Overwritten](deliverables/screenshots/06_overwritten.png) | ![Documents](deliverables/screenshots/08_documents.png) |
+
 ## Quick start (Windows, Python 3.12)
 
 ```bash

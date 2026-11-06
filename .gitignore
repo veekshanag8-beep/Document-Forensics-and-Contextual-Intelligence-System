@@ -1,5 +1,7 @@
 .venv/
 .claude/
+deliverables/_preview/
+deliverables/_raw_video/
 __pycache__/
 data/
 *.pyc

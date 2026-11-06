@@ -39,17 +39,31 @@ def template_summary(docs, findings) -> str:
     pm = [f for f in findings if f.status == POTENTIAL_MANIPULATION]
     inc = [f for f in findings if f.status == INCONSISTENCY]
     obs = [f for f in findings if f.status == OBSERVATION]
-    types = ", ".join(sorted({d.doc_type.replace("_", " ") for d in docs if d.status == "analysed"})) or "none"
-    parts = [f"{len(docs)} document(s) were submitted ({types}). Automated analysis produced {len(findings)} "
-             f"finding(s): {len(pm)} potential manipulation, {len(inc)} inconsistency, {len(obs)} observation."]
+    analysed = [d for d in docs if d.status == "analysed"]
+    failed = [d for d in docs if d.status == "failed"]
+    unsupported = [d for d in docs if d.status == "unsupported_type"]
+    types = ", ".join(sorted({d.doc_type.replace("_", " ") for d in analysed}))
+    parts = [f"{len(docs)} document(s) were submitted; {len(analysed)} fully analysed"
+             + (f" ({types})" if types else "") + "."]
+    if failed:
+        parts.append(f"{len(failed)} could not be processed ({', '.join(d.filename for d in failed)}) and "
+                     f"{'was' if len(failed) == 1 else 'were'} excluded.")
+    if unsupported:
+        parts.append(f"{len(unsupported)} had an unsupported document type "
+                     f"({', '.join(d.filename for d in unsupported)}); only visual and metadata checks were applied.")
+    parts.append(f"Automated analysis produced {len(findings)} finding(s): {len(pm)} potential manipulation, "
+                 f"{len(inc)} inconsistency, {len(obs)} observation.")
     if pm:
         parts.append("Highest-priority items: " + "; ".join(f"[{f.id}] {f.title}" for f in pm[:4]) + ".")
     hi = [f for f in inc if f.severity == "high"]
     if hi:
         parts.append("Key inconsistencies: " + "; ".join(f"[{f.id}] {f.title}" for f in hi[:5]) + ".")
-    if not pm and not inc:
-        parts.append("No inconsistencies were detected; the documents are mutually consistent within the limits "
-                     "of the checks applied.")
+    if not pm and not inc and len(analysed) >= 2:
+        parts.append("No inconsistencies were detected; the analysed documents are mutually consistent within the "
+                     "limits of the checks applied.")
+    elif not pm and not inc:
+        parts.append("No inconsistencies were detected, but fewer than two documents could be analysed, so no "
+                     "cross-document verification was possible.")
     parts.append("These are automated findings, not a fraud determination; each item needs human verification.")
     text = " ".join(parts)
     verify = list(dict.fromkeys(f"- {f.recommendation}" for f in (pm + hi) if f.recommendation))[:4]
