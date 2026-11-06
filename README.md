@@ -83,10 +83,6 @@ data/           runtime evidence store (created on first run)
 - [Technical documentation](docs/TECHNICAL.md): every stage and forensic method, data model, API, standards, licensing
 - [Limitations & assumptions](docs/LIMITATIONS.md): capability status, false-positive sources, unsupported scenarios
 - [Evaluation](docs/EVALUATION.md): per-anomaly detection results
-- [Demo script](docs/DEMO_SCRIPT.md): the judges' checklist walk-through, pitch, and Q&A
 
-## Ethics & safety
 
-Only synthetic documents (stamped *SYNTHETIC SPECIMEN*, fictional people and organisations) are included.
-Originals are never modified. OCR output is treated as unverified. Findings distinguish observations from
-inconsistencies and potential manipulation, and every consequential decision is left to a human reviewer.
+
