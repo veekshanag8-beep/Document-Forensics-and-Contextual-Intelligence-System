@@ -1,0 +1,171 @@
+{
+  "case_01_genuine": {
+    "description": "Genuine, mutually consistent documents. Expect no inconsistencies.",
+    "expected": []
+  },
+  "case_02_visual_tamper": {
+    "description": "Net pay on scanned salary slip spliced (49,500 -> 94,500); declared monthly income on the digital form overwritten with a white box (58,000 -> 95,000) and re-saved by a PDF editor; the applicant's signature on the form is a pixel copy of the ID card signature.",
+    "expected": [
+      {
+        "doc": "salary_slip.jpg",
+        "kind": "visual_tamper",
+        "field": "net_pay",
+        "bbox": [
+          464,
+          953,
+          642,
+          983
+        ],
+        "other_doc": null,
+        "note": "spliced value region"
+      },
+      {
+        "doc": "salary_slip.jpg",
+        "kind": "arithmetic",
+        "field": "net_pay",
+        "bbox": null,
+        "other_doc": null,
+        "note": "gross - deductions != net pay"
+      },
+      {
+        "doc": "salary_slip.jpg",
+        "kind": "cross_mismatch",
+        "field": "net_pay",
+        "bbox": null,
+        "other_doc": "bank_statement.pdf",
+        "note": "salary credit 49,500 vs slip net 94,500"
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "overlay_hidden_text",
+        "field": "monthly_income",
+        "bbox": [
+          466.0,
+          745.5,
+          618.0,
+          773.0
+        ],
+        "other_doc": null,
+        "note": "original 58,000.00 still in text layer under white box"
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "font_inconsistency",
+        "field": "monthly_income",
+        "bbox": [
+          466.0,
+          745.5,
+          618.0,
+          773.0
+        ],
+        "other_doc": null,
+        "note": ""
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "cross_mismatch",
+        "field": "monthly_income",
+        "bbox": null,
+        "other_doc": "salary_slip.jpg",
+        "note": "declared income 95,000 vs slip gross 58,000"
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "signature_copy",
+        "field": "applicant_signature",
+        "bbox": null,
+        "other_doc": "identity_card.jpg",
+        "note": ""
+      }
+    ]
+  },
+  "case_03_contextual": {
+    "description": "Visually clean documents with contextual problems: name spelling variant, DOB conflict, stated age inconsistent with DOB, ID number mistyped (checksum fails), slip arithmetic error, salary credit different from slip, broken running balance, different address on bank statement, missing authorised signature on salary slip.",
+    "expected": [
+      {
+        "doc": "identity_card.jpg",
+        "kind": "cross_mismatch",
+        "field": "name",
+        "bbox": null,
+        "other_doc": "application_form.pdf",
+        "note": ""
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "cross_mismatch",
+        "field": "date_of_birth",
+        "bbox": null,
+        "other_doc": "identity_card.jpg",
+        "note": ""
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "age_dob",
+        "field": "age",
+        "bbox": null,
+        "other_doc": null,
+        "note": ""
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "checksum",
+        "field": "national_id",
+        "bbox": null,
+        "other_doc": null,
+        "note": ""
+      },
+      {
+        "doc": "application_form.pdf",
+        "kind": "cross_mismatch",
+        "field": "national_id",
+        "bbox": null,
+        "other_doc": "identity_card.jpg",
+        "note": ""
+      },
+      {
+        "doc": "salary_slip.pdf",
+        "kind": "arithmetic",
+        "field": "net_pay",
+        "bbox": null,
+        "other_doc": null,
+        "note": ""
+      },
+      {
+        "doc": "bank_statement.jpg",
+        "kind": "cross_mismatch",
+        "field": "salary_credit",
+        "bbox": null,
+        "other_doc": "salary_slip.pdf",
+        "note": ""
+      },
+      {
+        "doc": "bank_statement.jpg",
+        "kind": "running_balance",
+        "field": "balance",
+        "bbox": null,
+        "other_doc": null,
+        "note": ""
+      },
+      {
+        "doc": "bank_statement.jpg",
+        "kind": "cross_mismatch",
+        "field": "address",
+        "bbox": null,
+        "other_doc": "application_form.pdf",
+        "note": ""
+      },
+      {
+        "doc": "salary_slip.pdf",
+        "kind": "missing_signature",
+        "field": "authorised_signature",
+        "bbox": null,
+        "other_doc": null,
+        "note": ""
+      }
+    ]
+  },
+  "misc_failure_handling": {
+    "description": "A corrupted PDF and an unsupported document type. Expect safe failure and honest 'unsupported' reporting.",
+    "expected": []
+  }
+}

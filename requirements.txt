@@ -1,0 +1,11 @@
+# Python 3.10 - 3.12
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+pymupdf>=1.24          # PDF parsing, text layer with fonts, rendering (AGPL-3.0)
+pillow>=10
+numpy>=1.26
+opencv-python-headless>=4.9
+rapidocr-onnxruntime>=1.3   # PaddleOCR models on ONNX Runtime (Apache-2.0)
+rapidfuzz>=3.6
+anthropic>=0.40        # optional: LLM-written investigation summary

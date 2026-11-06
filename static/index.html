@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocForensics Console</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">&#9670;</span> DocForensics <span class="sub">Document Forensics &amp; Contextual Intelligence</span></div>
+  <div class="topright"><span id="chain" class="chain" title="Audit log hash-chain status"></span></div>
+</header>
+<div class="layout">
+  <aside class="side">
+    <section class="card">
+      <h3>New investigation</h3>
+      <input id="caseName" placeholder="Case name (e.g. Loan PL-2026-0042)">
+      <label class="drop" id="drop">
+        <input type="file" id="files" multiple accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff,.webp" hidden>
+        <span id="dropText">Drop PDFs / scans here or click to choose</span>
+      </label>
+      <button id="startBtn" class="primary" disabled>Start investigation</button>
+    </section>
+    <section class="card">
+      <h3>Demonstration datasets</h3>
+      <div id="samples" class="samples"></div>
+    </section>
+    <section class="card">
+      <h3>Investigation history</h3>
+      <div id="history" class="history"></div>
+    </section>
+  </aside>
+  <main id="main">
+    <div class="empty">
+      <h2>Upload related documents to begin</h2>
+      <p>The system classifies each document, extracts structured information, examines visual characteristics,
+        cross-checks every document against the others, and produces an evidence-backed investigation dossier.</p>
+      <p class="muted">Statuses: <span class="pill obs">Observation</span> factual characteristic &middot;
+        <span class="pill inc">Inconsistency</span> detected discrepancy &middot;
+        <span class="pill pm">Potential manipulation</span> pattern consistent with deliberate alteration.
+        Nothing here is a fraud determination.</p>
+    </div>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
